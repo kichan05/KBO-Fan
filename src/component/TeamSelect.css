@@ -1,0 +1,30 @@
+.team-list {
+    width: 100%;
+
+    display: grid;
+    grid-gap: 4px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.team-list li {
+    list-style: none;
+
+    padding: 12px;
+
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #dcffcb;
+}
+
+.team-list li.selected {
+    background-color: #93fd67;
+}
+
+.team-list .logo {
+    width: 80px;
+}
