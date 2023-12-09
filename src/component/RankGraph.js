@@ -1,30 +1,44 @@
-import {useState} from "react";
-import rank from "../data/rank";
 import {ResponsiveLine} from "@nivo/line";
+import TeamData from "./../data/team"
+import "./RankGraph.css"
 
-function RankGraph() {
-  const [selectTeam, setSelectTeam] = useState(null)
-  let d = []
-  rank.forEach((value) => {
-    if (selectTeam == null || value.id === selectTeam) {
-      d.push(value)
-    } else {
-      const v = {...value}
-      v.data = []
-      d.push(v)
+function RankGraph({rankData, selectedTeam}) {
+  let data = TeamData.map(team => {
+    return {
+      id: team.team_name,
+      color: team.color1,
+      teamId: team.team_id,
+      data: []
+    }
+  })
+
+  rankData.forEach(rank => {
+    if (selectedTeam.length === 0 || selectedTeam.includes(rank.team_id)) {
+      data[rank.team_id].data.push({
+        x: rank.year, y: rank.rank
+      })
     }
   })
 
   return (
-    <>
+    <div className="rank-graph">
       <ResponsiveLine
+        margin={{top: 50, right: 100, bottom: 50, left: 50}}
         isInteractive
         useMesh
-        data={d}
-        colors={d.map((value) => {
+        data={data}
+        colors={data.map((value) => {
           return value.color
         })}
-        margin={{top: 50, right: 100, bottom: 50, left: 50}}
+
+        enablePoints={false}
+        enableGridX={false}
+        curve={"catmullRom"}
+
+        pointLabel="y"
+        enableSlices={"x"}
+
+        lineWidth={2}
         xScale={{
           type: "linear",
           min: 1981,
@@ -60,16 +74,11 @@ function RankGraph() {
                 }
               }
             ],
-            onClick: (datum) => {
-              if (selectTeam === datum.id)
-                setSelectTeam(null)
-              else
-                setSelectTeam(datum.id)
-            }
           }
         ]}
-
       />
-    </>
+    </div>
   )
 }
+
+export default RankGraph
