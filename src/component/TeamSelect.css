@@ -1,8 +1,10 @@
 .team-list {
     width: 100%;
 
+    padding: 12px;
+
     display: grid;
-    grid-gap: 4px;
+    grid-gap: 8px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
@@ -27,5 +29,10 @@
 }
 
 .team-list .logo {
-    width: 80px;
+    width: 60px;
+}
+
+.team-list .name {
+    margin-top: 8px;
+    font-weight: 800;
 }
