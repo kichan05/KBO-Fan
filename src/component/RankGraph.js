@@ -2,6 +2,14 @@ import {ResponsiveLine} from "@nivo/line";
 import TeamData from "./../data/team"
 import "./RankGraph.css"
 
+const Label = () => {
+  return (
+    <span>
+      <h1>sdsad</h1>
+    </span>
+  )
+}
+
 function RankGraph({rankData, selectedTeam}) {
   let data = TeamData.map(team => {
     return {
@@ -31,11 +39,10 @@ function RankGraph({rankData, selectedTeam}) {
           return value.color
         })}
 
-        enablePoints={false}
         enableGridX={false}
         curve={"catmullRom"}
 
-        pointLabel="y"
+        pointLabel={"x"}
         enableSlices={"x"}
 
         lineWidth={2}

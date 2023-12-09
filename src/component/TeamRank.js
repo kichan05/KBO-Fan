@@ -1,6 +1,6 @@
-import rankData from "./data/rank";
+import rankData from "../data/rank";
 
-function TeamRank({selectedTeam}) {
+function RankTable({selectedTeam}) {
   return (
     <table border="1">
       {rankData.filter(t => (

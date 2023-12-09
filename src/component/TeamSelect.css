@@ -19,6 +19,7 @@
     align-items: center;
 
     background-color: #dcffcb;
+    user-select: none;
 }
 
 .team-list li.selected {

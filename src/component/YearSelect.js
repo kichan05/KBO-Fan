@@ -2,13 +2,17 @@ import React, {useEffect, useRef, useState} from 'react';
 import style from "./YearSelect.css"
 
 function YearSelect() {
-  const root = useRef()
   const [startInfo, setStartInfo] = useState({
     isMode: false, x: 0, width: 50
   })
   const [endInfo, setEndInfo] = useState({
     isMode: false, x: 100, width: 50
   })
+
+  const root = useRef()
+  useEffect(() => {
+    setEndInfo({...endInfo, x : root.current.offsetWidth})
+  }, [])
 
   const handleMouseMove = e => {
     if (startInfo.isMode && !endInfo.isMode) {
@@ -32,7 +36,7 @@ function YearSelect() {
     }
 
     if (endInfo.isMode && !startInfo.isMode) {
-      let nextX = Math.min(window.innerWidth, endInfo.x + e.movementX)
+      let nextX = endInfo.x + e.movementX
       if(nextX >= root.current.offsetWidth)
         nextX = root.current.offsetWidth
       else if(nextX - endInfo.width * 2 <= startInfo.x){
@@ -55,7 +59,6 @@ function YearSelect() {
 
   useEffect(() => {
     document.addEventListener("mousemove", handleMouseMove)
-
     return () => {
       document.removeEventListener("mousemove", handleMouseMove)
     }
