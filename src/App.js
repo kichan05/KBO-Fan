@@ -1,4 +1,4 @@
-import './App.css';
+import './style/App.css';
 import teamData from "./data/team.js"
 import {useMemo, useState} from "react";
 import TeamSelect from "./component/TeamSelect";
@@ -32,7 +32,6 @@ function App() {
       <RankGraph
         rankData={Rank}
         selectedTeam={selectedTeam}/>
-
       <YearSelect/>
     </div>
   );
