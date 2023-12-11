@@ -2,6 +2,23 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import style from "./RangeInput.css"
 import {renderToPipeableStream} from "react-dom/server";
 
+
+// let data = TeamData.map(team => {
+//   return {
+//     id: team.team_name,
+//     color: team.color1,
+//     teamId: team.team_id,
+//     data: []
+//   }
+// })
+//
+// rankData.forEach(rank => {
+//   if (selectedTeam.length === 0 || selectedTeam.includes(rank.team_id)) {
+//     data[rank.team_id].data.push({
+//       x: rank.year, y: rank.rank
+//     })
+//   }
+// })
 function RangeInput({max, min, start, end, onChange}) {
   const [startInfo, setStartInfo] = useState({
     isMode: false, x: 0, width: 50

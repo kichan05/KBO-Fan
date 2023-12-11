@@ -1,34 +1,19 @@
 import {ResponsiveLine} from "@nivo/line";
 import TeamData from "./../data/team"
 import "./RankGraph.css"
+import rank from "../data/rank";
 
-function RankGraph({rankData, selectedTeam, startYear, endYear}) {
-  let data = TeamData.map(team => {
-    return {
-      id: team.team_name,
-      color: team.color1,
-      teamId: team.team_id,
-      data: []
-    }
-  })
-
-  rankData.forEach(rank => {
-    if (selectedTeam.length === 0 || selectedTeam.includes(rank.team_id)) {
-      data[rank.team_id].data.push({
-        x: rank.year, y: rank.rank
-      })
-    }
-  })
+function RankGraph({rankData, startYear, endYear}) {
 
   return (
     <div className="rank-graph">
       <ResponsiveLine
         margin={{top: 50, right: 100, bottom: 50, left: 50}}
-        useMesh
-        data={data}
-        colors={data.map((value) => {
+        data={rankData}
+        colors={rankData.map((value) => {
           return value.color
         })}
+        animate={false}
 
         enableGridX={false}
         curve={"catmullRom"}

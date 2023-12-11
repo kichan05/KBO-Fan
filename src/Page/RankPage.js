@@ -5,46 +5,54 @@ import RankGraph from "../component/RankGraph";
 import Rank from "../data/rank";
 import RangeInput from "../component/RangeInput";
 
+let dataFormat = teamData.map(team => {
+  return {
+    ...team,
+    data: [],
+    isSelect : false
+  }
+})
+Rank.forEach(rank => {
+  dataFormat[rank.team_id].data.push({
+    x: rank.year, y: rank.rank
+  })
+})
+
 export function RankPage() {
   const [startYear, setStartYear] = useState(1981)
   const [endYear, setEndYear] = useState(2023)
 
-  const [teamList, setTeamList] = useState(teamData.map(team => {
-    return {...team, isSelect: false}
-  }).sort((a, b) => a.order_index - b.order_index))
-
-  const selectedTeam = useMemo(() => {
-    return teamList.filter(t => t.isSelect).map(t => t.team_id)
-  }, [teamList])
+  const [rankData, setRankData] = useState(dataFormat)
 
   const handleTesmSelect = (teamId) => {
-    setTeamList(teamList.map(team => {
-      return team.team_id === teamId ?
-        {...team, isSelect: !team.isSelect} : team
+    setRankData(rankData.map(team => {
+      return team.id === teamId ? {...team, isSelect : !team.isSelect} : team
     }))
   }
+
   return (
     <section className={"page"}>
       <TeamSelect
-        teamList={teamList}
+        teamList={rankData.map(rank => {
+          return {...rank, data : null}
+        })}
         onTeamSelected={handleTesmSelect}/>
 
-      <RankGraph
-        rankData={Rank}
-        selectedTeam={selectedTeam}
-        startYear={startYear}
-        endYear={endYear}
-        />
+      {/*<RankGraph*/}
+      {/*  rankData={Rank}*/}
+      {/*  startYear={startYear}*/}
+      {/*  endYear={endYear}*/}
+      {/*  />*/}
 
-      <RangeInput
-        max={2023}
-        min={1981}
-        onChange={({start, end}) => {
-          console.log(start, end)
-          setStartYear(start)
-          setEndYear(end)
-        }}
-      />
+      {/*<RangeInput*/}
+      {/*  max={2023}*/}
+      {/*  min={1981}*/}
+      {/*  onChange={({start, end}) => {*/}
+      {/*    console.log(start, end)*/}
+      {/*    setStartYear(start)*/}
+      {/*    setEndYear(end)*/}
+      {/*  }}*/}
+      {/*/>*/}
     </section>
   )
 }
