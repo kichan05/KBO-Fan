@@ -2,15 +2,7 @@ import {ResponsiveLine} from "@nivo/line";
 import TeamData from "./../data/team"
 import "./RankGraph.css"
 
-const Label = () => {
-  return (
-    <span>
-      <h1>sdsad</h1>
-    </span>
-  )
-}
-
-function RankGraph({rankData, selectedTeam}) {
+function RankGraph({rankData, selectedTeam, startYear, endYear}) {
   let data = TeamData.map(team => {
     return {
       id: team.team_name,
@@ -32,7 +24,6 @@ function RankGraph({rankData, selectedTeam}) {
     <div className="rank-graph">
       <ResponsiveLine
         margin={{top: 50, right: 100, bottom: 50, left: 50}}
-        isInteractive
         useMesh
         data={data}
         colors={data.map((value) => {
@@ -45,11 +36,26 @@ function RankGraph({rankData, selectedTeam}) {
         pointLabel={"x"}
         enableSlices={"x"}
 
+        tooltip={({point}) => {
+          return (
+            <div
+              style={{
+                background: 'white',
+                padding: '9px 12px',
+                border: '1px solid #ccc',
+              }}
+            >
+              <div>x: {point.x}</div>
+              <div>y: {point.y}</div>
+            </div>
+          )
+        }}
+
         lineWidth={2}
         xScale={{
           type: "linear",
-          min: 1981,
-          max: 2023,
+          min: startYear,
+          max: endYear,
         }}
         yScale={{
           type: 'linear',
@@ -86,6 +92,10 @@ function RankGraph({rankData, selectedTeam}) {
       />
     </div>
   )
+}
+
+RankGraph.defaultProps = {
+  startYear : 1981, endYear : 2023
 }
 
 export default RankGraph

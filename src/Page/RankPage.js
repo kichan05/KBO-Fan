@@ -3,9 +3,12 @@ import teamData from "../data/team";
 import TeamSelect from "../component/TeamSelect";
 import RankGraph from "../component/RankGraph";
 import Rank from "../data/rank";
-import YearSelect from "../component/YearSelect";
+import RangeInput from "../component/RangeInput";
 
-export function MainPage() {
+export function RankPage() {
+  const [startYear, setStartYear] = useState(1981)
+  const [endYear, setEndYear] = useState(2023)
+
   const [teamList, setTeamList] = useState(teamData.map(team => {
     return {...team, isSelect: false}
   }).sort((a, b) => a.order_index - b.order_index))
@@ -28,8 +31,16 @@ export function MainPage() {
 
       <RankGraph
         rankData={Rank}
-        selectedTeam={selectedTeam}/>
-      <YearSelect/>
+        selectedTeam={selectedTeam}
+        />
+
+      <RangeInput
+        max={2023}
+        min={1981}
+        onChange={(start, end) => {
+          console.log(start, end)
+        }}
+      />
     </section>
   )
 }
