@@ -1,5 +1,6 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import style from "./RangeInput.css"
+import {renderToPipeableStream} from "react-dom/server";
 
 function RangeInput({max, min, start, end, onChange}) {
   const [startInfo, setStartInfo] = useState({
@@ -9,19 +10,19 @@ function RangeInput({max, min, start, end, onChange}) {
     isMode: false, x: 0, width: 50
   })
 
-  const root = useRef()
-  let [_start, _end] = [0, 0]
-  _start = useMemo(() => {
-    if(root.current === undefined) return
+  function getValue(flag){
+    const singleSize = root.current?.offsetWidth / (max - min + 1)
+    return Math.min(Math.floor(flag / singleSize) + min, 2023)
+  }
 
-    const width = Math.round(max * (endInfo.x - startInfo.x) / root.current.offsetWidth)
-    return _end - width
-    return Math.round(startInfo.x * max / root.current.offsetWidth)
+  const root = useRef()
+
+  const _start = useMemo(() => {
+    return getValue(startInfo.x)
   }, [startInfo])
 
-  _end = useMemo(() => {
-    if(root.current === undefined) return
-    return Math.round(endInfo.x * max / root.current.offsetWidth)
+  const _end = useMemo(() => {
+    return getValue(endInfo.x)
   }, [endInfo])
 
   useEffect(() => {
@@ -39,7 +40,7 @@ function RangeInput({max, min, start, end, onChange}) {
           ...startInfo, x: nextX,
           isMode: e.buttons === 1
         })
-        onChange({_start, _end})
+        onChange({start : _start, end : _end})
         return
       }
 
@@ -48,7 +49,7 @@ function RangeInput({max, min, start, end, onChange}) {
         x: nextX,
         isMode: e.buttons === 1
       })
-      onChange({_start, _end})
+      onChange({start : _start, end : _end})
     }
 
     if (endInfo.isMode && !startInfo.isMode) {
@@ -62,7 +63,7 @@ function RangeInput({max, min, start, end, onChange}) {
           x: nextX,
           isMode: e.buttons === 1
         })
-        onChange({_start, _end})
+        onChange({start : _start, end : _end})
         return
       }
 
@@ -71,7 +72,7 @@ function RangeInput({max, min, start, end, onChange}) {
         x: nextX,
         isMode: e.buttons === 1
       })
-      onChange({_start, _end})
+      onChange({start : _start, end : _end})
     }
   }
 
@@ -105,9 +106,7 @@ function RangeInput({max, min, start, end, onChange}) {
             left: startInfo.x,
             width: endInfo.x - startInfo.x
           }}
-        >
-          {_start}, {_end}
-        </div>
+        ></div>
       </div>
     </div>
   );

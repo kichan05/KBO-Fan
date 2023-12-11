@@ -32,13 +32,17 @@ export function RankPage() {
       <RankGraph
         rankData={Rank}
         selectedTeam={selectedTeam}
+        startYear={startYear}
+        endYear={endYear}
         />
 
       <RangeInput
         max={2023}
         min={1981}
-        onChange={(start, end) => {
+        onChange={({start, end}) => {
           console.log(start, end)
+          setStartYear(start)
+          setEndYear(end)
         }}
       />
     </section>
