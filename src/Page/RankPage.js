@@ -4,8 +4,6 @@ import TeamSelect from "../component/TeamSelect";
 import RankGraph from "../component/RankGraph";
 import Rank from "../data/rank";
 import RangeInput from "../component/RangeInput";
-import {logDOM} from "@testing-library/react";
-import rank from "../data/rank";
 
 let dataFormat = teamData.map(team => {
   return {
@@ -42,20 +40,19 @@ export function RankPage() {
           return {...rank, data : null}
         })}
         onTeamSelected={handleTesmSelect}/>
-      {isNoSelect ? "T" : "F"}
       <RankGraph
         rankData={rankData.map(team => (
           (isNoSelect || team.isSelect) ? team : {...team, data : []}
         ))}
-        // startYear={startYear}
-        // endYear={endYear}
+        startYear={startYear}
+        endYear={endYear}
         />
 
       <RangeInput
         max={2023}
         min={1981}
-        onStartChange={(start) => {setStartYear(start)}}
-        onEndChange={(end) => {setEndYear(end)}}
+        onStartChange={setStartYear}
+        onEndChange={setEndYear}
       />
     </section>
   )

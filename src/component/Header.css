@@ -1,0 +1,27 @@
+header {
+  width: 100%;
+  height: var(--header-height);
+}
+
+header .content {
+  width: 100%;
+  max-width: var(--min-pc-size);
+  height: 100%;
+
+  margin: 0 auto;
+  padding: 0 12px;
+
+  display: inline-flex;
+  align-items: center;
+}
+
+header ul {
+  display: inline-flex;
+}
+
+header li {
+  margin-right: 16px;
+
+  font-size: 24px;
+  font-weight: 600;
+}

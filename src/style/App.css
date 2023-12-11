@@ -1,3 +1,8 @@
+:root {
+  --min-pc-size : 1000px;
+  --header-height : 60px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -20,6 +25,7 @@ body {
 
 section.page {
   width: 100%;
-  max-width: 1000px;
+  min-height: calc(100% - var(--header-height));
+  max-width: var(--min-pc-size);
   margin: 0 auto;
 }
