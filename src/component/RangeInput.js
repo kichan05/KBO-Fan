@@ -2,24 +2,7 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import style from "./RangeInput.css"
 import {renderToPipeableStream} from "react-dom/server";
 
-
-// let data = TeamData.map(team => {
-//   return {
-//     id: team.team_name,
-//     color: team.color1,
-//     teamId: team.team_id,
-//     data: []
-//   }
-// })
-//
-// rankData.forEach(rank => {
-//   if (selectedTeam.length === 0 || selectedTeam.includes(rank.team_id)) {
-//     data[rank.team_id].data.push({
-//       x: rank.year, y: rank.rank
-//     })
-//   }
-// })
-function RangeInput({max, min, start, end, onChange}) {
+function RangeInput({max, min, onStartChange, onEndChange}) {
   const [startInfo, setStartInfo] = useState({
     isMode: false, x: 0, width: 50
   })
@@ -27,7 +10,7 @@ function RangeInput({max, min, start, end, onChange}) {
     isMode: false, x: 0, width: 50
   })
 
-  function getValue(flag){
+  function getValue(flag) {
     const singleSize = root.current?.offsetWidth / (max - min + 1)
     return Math.min(Math.floor(flag / singleSize) + min, 2023)
   }
@@ -51,45 +34,30 @@ function RangeInput({max, min, start, end, onChange}) {
       let nextX = startInfo.x + e.movementX
       if (nextX <= 0)
         nextX = 0
-      else if (nextX + startInfo.width * 2 >= endInfo.x) {
+      else if (nextX + startInfo.width * 2 >= endInfo.x)
         nextX = endInfo.x - startInfo.width * 2
-        setStartInfo({
-          ...startInfo, x: nextX,
-          isMode: e.buttons === 1
-        })
-        onChange({start : _start, end : _end})
-        return
-      }
 
       setStartInfo({
         ...startInfo,
         x: nextX,
         isMode: e.buttons === 1
       })
-      onChange({start : _start, end : _end})
+      onStartChange(_start)
     }
 
     if (endInfo.isMode && !startInfo.isMode) {
       let nextX = endInfo.x + e.movementX
       if (nextX >= root.current.offsetWidth)
         nextX = root.current.offsetWidth
-      else if (nextX - endInfo.width * 2 <= startInfo.x) {
+      else if (nextX - endInfo.width * 2 <= startInfo.x)
         nextX = startInfo.x + endInfo.width * 2
-        setEndInfo({
-          ...endInfo,
-          x: nextX,
-          isMode: e.buttons === 1
-        })
-        onChange({start : _start, end : _end})
-        return
-      }
 
       setEndInfo({
         ...endInfo,
         x: nextX,
         isMode: e.buttons === 1
       })
-      onChange({start : _start, end : _end})
+      onEndChange(_end)
     }
   }
 
@@ -132,10 +100,8 @@ function RangeInput({max, min, start, end, onChange}) {
 RangeInput.defaultProps = {
   max: 100,
   min: 0,
-  start: 50,
-  end: 60,
-  onChange: () => {
-  },
+  onStartChange : () => {},
+  onEndChange : () => {}
 }
 
 export default RangeInput;

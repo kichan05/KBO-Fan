@@ -83,7 +83,7 @@ function RankGraph({rankData, startYear, endYear}) {
 }
 
 RankGraph.defaultProps = {
-  startYear : 1981, endYear : 2023
+  startYear : 1982, endYear : 2023
 }
 
 export default RankGraph

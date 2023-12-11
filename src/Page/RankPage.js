@@ -21,7 +21,7 @@ Rank.forEach(rank => {
 })
 
 export function RankPage() {
-  const [startYear, setStartYear] = useState(1981)
+  const [startYear, setStartYear] = useState(1982)
   const [endYear, setEndYear] = useState(2023)
 
   const [rankData, setRankData] = useState(dataFormat)
@@ -47,19 +47,16 @@ export function RankPage() {
         rankData={rankData.map(team => (
           (isNoSelect || team.isSelect) ? team : {...team, data : []}
         ))}
-        startYear={startYear}
-        endYear={endYear}
+        // startYear={startYear}
+        // endYear={endYear}
         />
 
-      {/*<RangeInput*/}
-      {/*  max={2023}*/}
-      {/*  min={1981}*/}
-      {/*  onChange={({start, end}) => {*/}
-      {/*    console.log(start, end)*/}
-      {/*    setStartYear(start)*/}
-      {/*    setEndYear(end)*/}
-      {/*  }}*/}
-      {/*/>*/}
+      <RangeInput
+        max={2023}
+        min={1981}
+        onStartChange={(start) => {setStartYear(start)}}
+        onEndChange={(end) => {setEndYear(end)}}
+      />
     </section>
   )
 }
