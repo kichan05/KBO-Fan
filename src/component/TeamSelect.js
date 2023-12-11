@@ -6,7 +6,7 @@ const TeamSelect = ({teamList, onTeamSelected}) => {
     <ui className={"team-list"}>
       {teamList.map((team, index) => (
         <li
-          key={team.index}
+          key={index}
           className={classNames({selected: team.isSelect})}
           onClick={() => {
             onTeamSelected(team.id)

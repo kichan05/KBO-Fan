@@ -4,14 +4,17 @@ import "./RankGraph.css"
 import rank from "../data/rank";
 
 function RankGraph({rankData, startYear, endYear}) {
-
   return (
     <div className="rank-graph">
       <ResponsiveLine
         margin={{top: 50, right: 100, bottom: 50, left: 50}}
-        data={rankData}
+        data={
+          rankData.map(team => (
+            {...team, id : team.name}
+          ))
+        }
         colors={rankData.map((value) => {
-          return value.color
+          return value.color1
         })}
         animate={false}
 
