@@ -4,7 +4,6 @@
     position: relative;
 
     padding: 5px;
-    background-color: #f00;
 }
 
 .range-input .bar {
@@ -28,22 +27,22 @@
 
     cursor: col-resize;
     user-select: none;
+
+    background-color: #053a86;
 }
 
 .range-input .start {
     left: 0;
-    background-color: #0f0;
 }
 
 .range-input .end {
     left: 100%;
     transform: translateX(-100%);
-    background-color: #00f;
 }
 
 .range-input .parent {
     height: calc(100% - 7px);
-    background-color: #ff9292;
+    background-color: #053a86;
 
     display: inline-block;
     position: absolute;

@@ -51,6 +51,7 @@ export function RankPage() {
       <RangeInput
         max={2023}
         min={1981}
+        speed={(rankData.filter(i => i.isSelect).length - 1) / 180 + 1}
         onStartChange={setStartYear}
         onEndChange={setEndYear}
       />

@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import style from "./RangeInput.css"
 import {renderToPipeableStream} from "react-dom/server";
 
-function RangeInput({max, min, onStartChange, onEndChange}) {
+function RangeInput({max, min, speed, onStartChange, onEndChange}) {
   const [startInfo, setStartInfo] = useState({
     isMode: false, x: 0, width: 15
   })
@@ -31,7 +31,7 @@ function RangeInput({max, min, onStartChange, onEndChange}) {
 
   const handleMouseMove = e => {
     if (startInfo.isMode && !endInfo.isMode) {
-      let nextX = startInfo.x + e.movementX
+      let nextX = startInfo.x + e.movementX * speed
       if (nextX <= 0)
         nextX = 0
       else if (nextX + startInfo.width * 2 >= endInfo.x)
@@ -46,7 +46,7 @@ function RangeInput({max, min, onStartChange, onEndChange}) {
     }
 
     if (endInfo.isMode && !startInfo.isMode) {
-      let nextX = endInfo.x + e.movementX
+      let nextX = endInfo.x + e.movementX * speed
       if (nextX >= root.current.offsetWidth)
         nextX = root.current.offsetWidth
       else if (nextX - endInfo.width * 2 <= startInfo.x)
@@ -102,6 +102,10 @@ RangeInput.defaultProps = {
   min: 0,
   onStartChange : () => {},
   onEndChange : () => {}
+}
+
+RangeInput.defaultProps = {
+  speed : 1,
 }
 
 export default RangeInput;
