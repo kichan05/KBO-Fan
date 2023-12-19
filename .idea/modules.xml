@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../kbo-fan.iml" filepath="$PROJECT_DIR$/../kbo-fan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/kbo-fan.iml" filepath="$PROJECT_DIR$/.idea/kbo-fan.iml" />
     </modules>
   </component>
 </project>

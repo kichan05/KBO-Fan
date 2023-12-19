@@ -1,6 +1,6 @@
 .range-input {
     width: 90%;
-    height: 50px;
+    height: 25px;
     position: relative;
 
     padding: 5px;
@@ -19,6 +19,7 @@
     height: 100%;
 
     color: white;
+    border-radius: 100px;
 
     display: inline-block;
 
@@ -41,9 +42,12 @@
 }
 
 .range-input .parent {
-    height: 100%;
+    height: calc(100% - 7px);
     background-color: #ff9292;
 
     display: inline-block;
     position: absolute;
+    top : 50%;
+
+    transform: translateY(-50%);
 }

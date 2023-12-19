@@ -4,10 +4,10 @@ import {renderToPipeableStream} from "react-dom/server";
 
 function RangeInput({max, min, onStartChange, onEndChange}) {
   const [startInfo, setStartInfo] = useState({
-    isMode: false, x: 0, width: 50
+    isMode: false, x: 0, width: 15
   })
   const [endInfo, setEndInfo] = useState({
-    isMode: false, x: 0, width: 50
+    isMode: false, x: 0, width: 15
   })
 
   function getValue(flag) {
@@ -88,8 +88,8 @@ function RangeInput({max, min, onStartChange, onEndChange}) {
         <div
           className="parent"
           style={{
-            left: startInfo.x,
-            width: endInfo.x - startInfo.x
+            left: startInfo.x + startInfo.width / 2,
+            width: endInfo.x - startInfo.x - startInfo.width
           }}
         ></div>
       </div>
